@@ -1,0 +1,20 @@
+pipeline {
+    agent {
+        label neo-ci
+    }
+
+    stages {
+        stage("Setup App") {
+            steps {
+                sh "composer install"
+                sh "php artisan migrate"
+            }
+        }
+
+        stage("Run Tests") {
+            steps {
+                sh "vendor/bin/phpunit"
+            }
+        }
+    }
+}
